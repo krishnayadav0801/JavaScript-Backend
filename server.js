@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const mongoose = require('./db')
 app.use(express.json());
+const userRoutes = require('./routes/user');
+app.use('/api', userRoutes);  // your endpoint becomes /api/signup
+
 
 
 app.get('/', (req, res) => {
