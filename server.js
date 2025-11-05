@@ -1,14 +1,23 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
+
 const app = express();
-const mongoose = require('./db')
-app.use(express.json());
+const mongoose = require('./db'); // ✅ make sure this file actually connects to DB
+
+app.use(express.json()); // ✅ middleware to parse JSON body
+
+// Import routes
 const userRoutes = require('./routes/user');
-app.use('/api', userRoutes);  // your endpoint becomes /api/signup
 
+// ✅ Prefix all user routes with /api
+app.use('/api', userRoutes);  
+// Now: POST http://localhost:5000/api/signup
+// or    POST http://localhost:5000/api/login
 
-
+// ✅ Basic test route
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+  res.send('Hello World!');
 });
 
-app.listen(5000, () => console.log('server running on port 5000'))
+// ✅ Start the server
+app.listen(5000, () => console.log('Server running on port 5000'));
